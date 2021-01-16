@@ -18,8 +18,9 @@ export function activate(context: vscode.ExtensionContext) {
 
 		if (currentEditor) {
 			const document = currentEditor.document;
+			
 			const endLine = document.lineCount;
-			for (let i = endLine - 1; i >= 0; i--) {
+			for (let i = 0; i < endLine; i++) {
 				code.push(document.lineAt(i).text);
 			}
 		}

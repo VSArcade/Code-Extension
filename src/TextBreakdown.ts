@@ -122,7 +122,7 @@ export class TextBreakdown {
     private _getHtmlForWebview(webview: vscode.Webview) {
         // // And the uri we use to load this script in the webview
         const scriptUri = webview.asWebviewUri( // gets it from the out folder
-            vscode.Uri.joinPath(this._extensionUri, "out", "") // finds compiled js in media folder
+            vscode.Uri.joinPath(this._extensionUri, "out", "bundle.js") // finds compiled js in media folder
         );
 
         // // Local path to css styles
@@ -135,6 +135,12 @@ export class TextBreakdown {
             this._extensionUri,
             "media",
             "vscode.css" // makes panel look like vscode
+        );
+
+        const stylesPath = vscode.Uri.joinPath(
+            this._extensionUri,
+            "media",
+            "style.css"
         );
 
         // Uri to load styles into webview
@@ -156,11 +162,11 @@ export class TextBreakdown {
 					Use a content security policy to only allow loading images from https or from our extension directory,
 					and only allow scripts that have a specific nonce.
                 -->
-                <meta http-equiv="Content-Security-Policy" content="img-src https: data:; style-src 'unsafe-inline' ${webview.cspSource}; script-src 'nonce-${nonce}';">
+                <meta http-equiv="Content-Security-Policy" content="img-src https: data:; style-src 'unsafe-inline' ${webview.cspSource}; ">
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link href="" rel="stylesheet">
-            <link href="${stylesResetUri}" rel="stylesheet">
-            <link href="${stylesMainUri}" rel="stylesheet">
+            <link href="${stylesPath}" rel="stylesheet">
+            <!-- <link href="${stylesResetUri}" rel="stylesheet"> -->
+            <!-- <link href="${stylesMainUri}" rel="stylesheet"> -->
             <script nonce="${nonce}">
             </script>
 			</head>
