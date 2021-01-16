@@ -2,6 +2,7 @@
 	"name": "vsarcade",
 	"displayName": "VSArcade",
 	"description": "VS arcade",
+	"publisher": "Eric-Huang",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.52.0"
