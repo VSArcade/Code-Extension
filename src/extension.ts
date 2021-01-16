@@ -21,13 +21,6 @@ export function activate(context: vscode.ExtensionContext) {
 			}
 
 			TextBreakdown.currentPanel?.refactor({code});
-			// TextBreakdown.currentPanel?.refactor(
-			// 	{
-			// 		styles: {
-			// 			background: 'red'
-			// 		}
-			// 	}
-			// );
 
 		})
 	);
