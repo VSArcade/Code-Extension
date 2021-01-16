@@ -20,7 +20,16 @@ export function activate(context: vscode.ExtensionContext) {
 				}
 			}
 
-			TextBreakdown.currentPanel?.refactor({code});
+			TextBreakdown.currentPanel?.refactor({
+				eventType: 'init',
+				eventInfo: {
+					gameType: 'breakout',
+					styles: {
+						background: ''
+					},
+					code: code
+				}
+			});
 
 		})
 	);
