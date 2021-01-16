@@ -10,14 +10,15 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:vsarcade.helloWorld"
+		"onCommand:vsarcade.textBreakdown"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "vsarcade.helloWorld",
-				"title": "Hello World"
+				"command": "vsarcade.textBreakdown",
+				"category": "VS Arcade",
+				"title": "Text Breakdown"
 			}
 		]
 	},
