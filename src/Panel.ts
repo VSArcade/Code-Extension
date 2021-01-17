@@ -49,7 +49,7 @@ export class Panel {
     }
 
     public refactor(msg: Object) {
-        this._panel.webview.postMessage({msg});
+        this._panel.webview.postMessage(msg);
     }
 
     // killing the panel
@@ -147,6 +147,7 @@ export class Panel {
 			</head>
             <body id="target">
             </body>
+            <canvas id="game-canvas"></canvas>
             <script src="${scriptUri}" nonce="${nonce}"></script>
         </html>`;
 
