@@ -51,7 +51,7 @@ export class Panel {
     }
 
     public refactor(msg: Object) {
-        this._panel.webview.postMessage({msg});
+        this._panel.webview.postMessage(msg);
     }
 
     // killing the panel
@@ -147,8 +147,6 @@ export class Panel {
 
         return html;
         // the following is an html element which is essentially the web view itself
-               // everytime a src folder gets edited, you need to reload the entire window
-        // for compiled, only the extension
     }
 }
 
