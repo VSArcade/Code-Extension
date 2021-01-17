@@ -33,7 +33,7 @@ export class Panel {
         // Otherwise, create a new panel.
         const panel = vscode.window.createWebviewPanel(
             Panel.viewType,
-            "Panel",
+            "VSArcade - Breakout",
             column || vscode.ViewColumn.One,
             {
                 // Enable javascript in the webview
@@ -133,7 +133,7 @@ export class Panel {
         );
 
         const stylesheetUri = webview.asWebviewUri(
-            vscode.Uri.joinPath(this._extensionUri, "media", this._styleUri)
+            vscode.Uri.joinPath(this._extensionUri, "out", this._styleUri)
         );
 
         const nonce = getNonce(); // creates a unique id
