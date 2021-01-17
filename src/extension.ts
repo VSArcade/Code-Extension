@@ -1,3 +1,4 @@
+import { strict } from 'assert';
 import * as vscode from 'vscode';
 import { TextBreakdown } from './TextBreakdown';
 
@@ -16,6 +17,7 @@ export function activate(context: vscode.ExtensionContext) {
 				
 				const endLine = document.lineCount;
 				for (let i = 0; i < endLine; i++) {
+					
 					code.push(document.lineAt(i).text);
 				}
 			}
