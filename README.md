@@ -2,7 +2,7 @@
 
 Tired of coding? Well here are some destructive ways to vent your frustration!
 
-Our project is for HacktheNorth 2020++! Give us a like at [Devpost](https://hackthenorth2020.devpost.com/)
+Our project is for HacktheNorth 2020++! Give us a like at [Devpost](https://devpost.com/software/vs-arcade-game)
 
 ## How to run it
 1. Install it right here!
