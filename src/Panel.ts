@@ -1,3 +1,4 @@
+import { Func } from "mocha";
 import * as vscode from "vscode";
 
 export class Panel {
@@ -10,12 +11,13 @@ export class Panel {
 
     private readonly _styleUri: string;
     private readonly _scriptUri: string;
+    private readonly _getHtml: ((arg: any) => string);
     private readonly _panel: vscode.WebviewPanel;
     private readonly _extensionUri: vscode.Uri;
     private _disposables: vscode.Disposable[] = [];
 
     // creating or showing the panel
-    public static createOrShow(extensionUri: vscode.Uri, styleUri: string, scriptUri: string) {
+    public static createOrShow(extensionUri: vscode.Uri, styleUri: string, scriptUri: string, getHtml: ((arg: any) => string)) {
         // is there an active text editor going on rn?
         const column = vscode.window.activeTextEditor
             ? vscode.window.activeTextEditor.viewColumn
@@ -45,7 +47,7 @@ export class Panel {
             }
         );
 
-        Panel.currentPanel = new Panel(panel, extensionUri, styleUri, scriptUri);
+        Panel.currentPanel = new Panel(panel, extensionUri, styleUri, scriptUri, getHtml);
     }
 
     public refactor(msg: Object) {
@@ -59,15 +61,16 @@ export class Panel {
     }
 
     // when doing a new one
-    public static revive(panel: vscode.WebviewPanel, extensionUri: vscode.Uri, styleUri: string, scriptUri: string) {
-        Panel.currentPanel = new Panel(panel, extensionUri, styleUri, scriptUri);
+    public static revive(panel: vscode.WebviewPanel, extensionUri: vscode.Uri, styleUri: string, scriptUri: string, getHtml: (arg: any) => string) {
+        Panel.currentPanel = new Panel(panel, extensionUri, styleUri, scriptUri, getHtml);
     }
 
-    public constructor(panel: vscode.WebviewPanel, extensionUri: vscode.Uri, styleUri: string, scriptUri: string) {
+    public constructor(panel: vscode.WebviewPanel, extensionUri: vscode.Uri, styleUri: string, scriptUri: string, getHtml: (arg: any) => string) {
         this._panel = panel;
         this._extensionUri = extensionUri;
         this._styleUri = styleUri;
         this._scriptUri = scriptUri;
+        this._getHtml = getHtml;
 
         // Set the webview's initial html content
         this._update();
@@ -135,22 +138,16 @@ export class Panel {
 
         const nonce = getNonce(); // creates a unique id
 
-        // the following is an html element which is essentially the web view itself
-        return `<!DOCTYPE html>
-			<html lang="en">
-			<head>
-				<meta charset="UTF-8">
-                <meta http-equiv="Content-Security-Policy" content="img-src https: data:; style-src 'unsafe-inline' ${webview.cspSource}; ">
-				<meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <link href="${stylesheetUri}" rel="stylesheet">
-            <script nonce="${nonce}"> </script>
-			</head>
-            <body id="target">
-            </body>
-            <script src="${scriptUri}" nonce="${nonce}"></script>
-        </html>`;
+        const html = this._getHtml({
+            cspSource: webview.cspSource,
+            stylesheetUri,
+            nonce,
+            scriptUri
+        });
 
-        // everytime a src folder gets edited, you need to reload the entire window
+        return html;
+        // the following is an html element which is essentially the web view itself
+               // everytime a src folder gets edited, you need to reload the entire window
         // for compiled, only the extension
     }
 }
