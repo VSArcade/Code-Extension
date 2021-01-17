@@ -4,7 +4,7 @@
 	"description": "VS arcade",
 	"publisher": "Eric-Huang",
 	"version": "0.5.2",
-	"logo": "media/logo3.png",
+	"icon": "media/logo3.png",
 	"engines": {
 		"vscode": "^1.52.0"
 	},
